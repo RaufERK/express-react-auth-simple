@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: '*',
+    origin: true,
     credentials: true,
   })
 );
@@ -36,7 +36,7 @@ const getUser = (req) => ({
 app
   .route('/api')
   .get((req, res) => {
-    // TEST URSER
+    // TEST USER
     res.send({ username: req.session.username });
   })
   .post((req, res) => {
@@ -50,7 +50,6 @@ app
     //LOGOUT
     console.log('req.body=>', req.body);
     req.session.destroy();
-
     res.send(getUser(req));
   });
 

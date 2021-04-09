@@ -14,7 +14,7 @@ const App = () => {
   const tryToLogin = async () => {
     const preResult = await fetch('http://localhost:8080/api', {
       method: 'POST',
-      // credentials: 'include',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -27,6 +27,7 @@ const App = () => {
   const logout = async () => {
     const preResult = await fetch('http://localhost:8080/api', {
       method: 'DELETE',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
