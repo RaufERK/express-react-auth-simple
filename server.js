@@ -16,13 +16,17 @@ const mongoUrl = 'mongodb://localhost/test-app';
 
 app.use(
   session({
-    secret: 'keyboardsdfdsfsdfdfsdcat',
+    secret: 'keyboardsdfdsfsd8789248923472dfsdcat',
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false, httpOnly: true },
     store: MongoStore.create({ mongoUrl }),
   })
 );
+
+app.use((req,res)=>{
+  console.log('SESSION->',);
+})
 
 app.use((req, res, next) => {
   console.log(' req.session.username =>', req.session.username);
