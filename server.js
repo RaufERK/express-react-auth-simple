@@ -16,7 +16,7 @@ const mongoUrl = 'mongodb://localhost/test-app';
 
 app.use(
   session({
-    secret: 'keyboardsdfdsfsd8789248923472dfsdcat',
+    secret: 'keyboardsdfsdasdsasdadsfsd8789248923472dfsdcat',
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false, httpOnly: true },
