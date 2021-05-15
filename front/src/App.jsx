@@ -3,11 +3,15 @@ import { useEffect, useState } from 'react';
 const App = () => {
   const [username, setUsername] = useState();
 
-  const getGetData = async () => {
+  const getCurrentUser = async () => {
+    console.log(' getCurrentUser = > start');
+
     const preResult = await fetch('http://localhost:8080/api', {
       credentials: 'include',
     });
+
     const { username } = await preResult.json();
+    console.log(' username =', username);
     setUsername(username);
   };
 
@@ -38,13 +42,15 @@ const App = () => {
   };
 
   useEffect(() => {
-    getGetData();
+    getCurrentUser();
   }, []);
+
   return (
     <div>
       <h1>APP</h1>
       <h1>username: {username}</h1>
-      <button onClick={getGetData}>GET CURRENET USER</button>
+
+      <button onClick={getCurrentUser}>GET CURRENET USER</button>
       <button onClick={tryToLogin}>LOGIN</button>
       <button onClick={logout}>LOGOUT</button>
     </div>

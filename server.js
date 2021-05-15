@@ -3,7 +3,11 @@ const app = express();
 const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const morgan = require('morgan');
 
+const mongoUrl = 'mongodb://localhost/test-app';
+
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -12,7 +16,6 @@ app.use(
     credentials: true,
   })
 );
-const mongoUrl = 'mongodb://localhost/test-app';
 
 app.use(
   session({
@@ -24,31 +27,28 @@ app.use(
   })
 );
 
-app.use((req,res)=>{
-  console.log('SESSION->',);
-})
-
 app.use((req, res, next) => {
-  console.log(' req.session.username =>', req.session.username);
+  // выводим в консоль текущего ююзера
+  console.log(' req.session.username =>', getUser(req));
   next();
 });
 
 const getUser = (req) => ({
-  username: (req.session && req.session.username) || 'no session',
+  username: (req.session && req.session.username) || 'no user',
 });
 
 app
   .route('/api')
   .get((req, res) => {
-    // TEST USER
-    res.send({ username: req.session.username });
+    // GET CURRENT USER
+    res.send(getUser(req));
   })
   .post((req, res) => {
     //LOGIN
     console.log('req.body=>', req.body);
     const { username } = req.body;
     req.session.username = username;
-    res.send({ username: req.session.username });
+    res.send({ username });
   })
   .delete((req, res) => {
     //LOGOUT
