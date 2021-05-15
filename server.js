@@ -28,13 +28,13 @@ app.use(
 );
 
 app.use((req, res, next) => {
-  // выводим в консоль текущего ююзера
+  // просто выводим в консоль текущего ююзера
   console.log(' req.session.username =>', getUser(req));
   next();
 });
 
 const getUser = (req) => ({
-  username: (req.session && req.session.username) || 'no user',
+  username: req.session?.username || 'no user',
 });
 
 app
